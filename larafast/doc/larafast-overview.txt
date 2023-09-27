@@ -1,0 +1,31 @@
+Larafast is a flexible system based on laravel which provide you handy reuseable features to build real life project and
+develop your project features in plugable and modular way.
+
+
+
+Larafast Structure :
+====================
+=> You will find larafast folder in your laravel root directory
+=> "Larafast\Core\ServiceProvider" included in providers array of app.php config file
+=> "Larafast\\" namespace included in composer.json file of root laravel directory
+
+Our larafast system is separated from the core laravel framework by these 3 section.
+No need to mess with core framework, do everything in larafast/Plugins directory only :)
+
+
+
+Larafast Working System :
+=========================
+
+=> On activate any plugin, service provider of that plugin will be registered
+=> On deactivate the plugin, service provider of that plugin will be removed from registration
+=> On delete the plugin, plugin directory will be deleted
+
+
+    ==> Plugin Development Guideline:
+    ---------------------------------
+    => Plugin's directory name must be unique and Capitalized
+    => Plugin's information will be stored as key value pair in plugin root directory's plugin-info.php file
+    => Plugin's ServiceProvider will be in this format: Larafast/Plugins/PluginName/PluginServiceProvider
+
+
