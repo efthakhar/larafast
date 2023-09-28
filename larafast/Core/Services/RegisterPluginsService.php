@@ -43,7 +43,7 @@ class RegisterPluginsService
 
                 $providers .= '$this->app->register(\\'.str_replace('/', '\\', $file['service_provider']).'::class);';
 
-                $this->createSymlink($file['plugin_public_dir_path'], public_path($file['plugin_dir_name']));
+                $this->createSymlink($file['plugin_public_dir_path'], public_path("Larafast".$file['plugin_dir_name']));
             }
         }
 
@@ -55,6 +55,10 @@ class RegisterPluginsService
         $providers = preg_replace($pattern, "private function registerPlugins() {\n".trim($providers)."\n}", $serviceProviderFileContents);
 
         file_put_contents($larafastServiceProviderFile, $providers);
+
+        // create symlink for core public file
+        $this->createSymlink(base_path('larafast/Core/Public'), public_path('LarafastCore'));
+
     }
 
     public function createSymlink($target, $link)

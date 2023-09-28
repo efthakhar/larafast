@@ -18,8 +18,7 @@ class LarafastServiceProvider extends ServiceProvider
     {
     }
 
-    private function registerPlugins()
-    {
-        $this->app->register(\Larafast\Plugins\Ecommerce\EcommerceServiceProvider::class);
-    }
+    private function registerPlugins() {
+$this->app->register(\Larafast\Plugins\Ecommerce\EcommerceServiceProvider::class);
+}
 }
