@@ -40,7 +40,10 @@ class RegisterPluginsService
             $file = require $filePath;
 
             if ($file['status'] === 'active' && class_exists('\\'.str_replace('/', '\\', $file['service_provider']))) {
+
                 $providers .= '$this->app->register(\\'.str_replace('/', '\\', $file['service_provider']).'::class);';
+
+                $this->createSymlink($file['plugin_public_dir_path'], public_path($file['plugin_dir_name']));
             }
         }
 
@@ -52,5 +55,16 @@ class RegisterPluginsService
         $providers = preg_replace($pattern, "private function registerPlugins() {\n".trim($providers)."\n}", $serviceProviderFileContents);
 
         file_put_contents($larafastServiceProviderFile, $providers);
+    }
+
+    public function createSymlink($target, $link)
+    {
+        if (! windows_os()) {
+            return symlink($target, $link);
+        }
+
+        $mode = is_dir($target) ? 'J' : 'H';
+
+        exec("mklink /{$mode} ".escapeshellarg($link).' '.escapeshellarg($target));
     }
 }

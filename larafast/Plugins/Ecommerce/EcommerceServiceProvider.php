@@ -2,6 +2,7 @@
 
 namespace Larafast\Plugins\Ecommerce;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class EcommerceServiceProvider extends ServiceProvider
@@ -15,6 +16,11 @@ class EcommerceServiceProvider extends ServiceProvider
 
     public function register()
     {
-
+        Storage::extend('ecommerce', function ($app, $config) {
+            return Storage::createLocalDriver([
+                'root' => base_path('larafast/Plugins/Ecommerce/Public'),
+                'url' => env('APP_URL').'/ecommerce',
+            ]);
+        });
     }
 }
